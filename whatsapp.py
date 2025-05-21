@@ -1,16 +1,14 @@
 import os
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
-
-TOKEN = os.getenv("WHATSAPP_TOKEN")
-PHONE_ID = os.getenv("WHATSAPP_PHONE_ID")
+# Cargar las variables de entorno
+ACCESS_TOKEN = os.getenv("WHATSAPP_ACCESS_TOKEN")
+PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_ID")  # Asegúrate de que esté configurada también
 
 def send_whatsapp_message(to, message):
-    url = f"https://graph.facebook.com/v19.0/{PHONE_ID}/messages"
+    url = f"https://graph.facebook.com/v17.0/{PHONE_NUMBER_ID}/messages"
     headers = {
-        "Authorization": f"Bearer {TOKEN}",
+        "Authorization": f"Bearer {ACCESS_TOKEN}",
         "Content-Type": "application/json"
     }
     payload = {
@@ -25,4 +23,4 @@ def send_whatsapp_message(to, message):
     response = requests.post(url, headers=headers, json=payload)
     print("Status:", response.status_code)
     print("Response:", response.text)
-    return response.json()
+
