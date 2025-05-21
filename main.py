@@ -1,11 +1,21 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 from pydantic import BaseModel
 import openai
 import os
 from dotenv import load_dotenv
 import json
 from whatsapp import send_whatsapp_message
+
+import base64
+
+# Decodificar y guardar las credenciales desde variable de entorno
+cred_base64 = os.getenv("GOOGLE_CREDENTIALS_BASE64")
+if cred_base64:
+    with open("credentials.json", "wb") as f:
+        f.write(base64.b64decode(cred_base64))
 
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -15,6 +25,15 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = FastAPI()
+# Activar CORS para permitir conexión desde Lovable
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Puedes reemplazar "*" por el dominio de Lovable
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 VERIFY_TOKEN = "vetbot123"
 
