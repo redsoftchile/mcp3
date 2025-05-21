@@ -1,9 +1,8 @@
 import os
 import requests
 
-# Cargar las variables de entorno
 ACCESS_TOKEN = os.getenv("WHATSAPP_ACCESS_TOKEN")
-PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_ID")  # Asegúrate de que esté configurada también
+PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_ID")
 
 def send_whatsapp_message(to, message):
     url = f"https://graph.facebook.com/v17.0/{PHONE_NUMBER_ID}/messages"
@@ -23,4 +22,5 @@ def send_whatsapp_message(to, message):
     response = requests.post(url, headers=headers, json=payload)
     print("Status:", response.status_code)
     print("Response:", response.text)
+
 
