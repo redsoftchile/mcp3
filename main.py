@@ -201,3 +201,15 @@ def procesar_mensaje(phone, mensaje):
     send_whatsapp_message(phone, reply)
 
     return {"reply": reply, "to": phone}
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/api/clinicas")
+def get_clinicas():
+    return [
+        {"id": 1, "nombre": "Clínica Arrayán", "comuna": "Providencia"},
+        {"id": 2, "nombre": "Clínica Andes", "comuna": "Vitacura"},
+        {"id": 3, "nombre": "Clínica Centro", "comuna": "Santiago Centro"},
+    ]
