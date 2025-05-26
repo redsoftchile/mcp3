@@ -213,3 +213,14 @@ def get_clinicas():
         {"id": 2, "nombre": "Clínica Andes", "comuna": "Vitacura"},
         {"id": 3, "nombre": "Clínica Centro", "comuna": "Santiago Centro"},
     ]
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # o ["https://lovableproject.com"] si quieres restringirlo
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
